@@ -1,0 +1,101 @@
+<div>
+  <div>
+    <h1>
+      Chapter #<%= @the_chapter.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/chapters">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_chapter/<%= @the_chapter.id %>">
+          Delete chapter
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Yoga class
+      </dt>
+      <dd>
+        <%= @the_chapter.yoga_class_id %>
+      </dd>
+
+      <dt>
+        Name
+      </dt>
+      <dd>
+        <%= @the_chapter.name %>
+      </dd>
+
+      <dt>
+        Duration secs
+      </dt>
+      <dd>
+        <%= @the_chapter.duration_secs %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_chapter.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_chapter.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit chapter
+    </h2>
+
+    <form action="/modify_chapter/<%= @the_chapter.id %>"  method="post" >
+      <div>
+        <label for="yoga_class_id_box">
+          Yoga class
+        </label>
+
+        <input type="text" id="yoga_class_id_box" name="query_yoga_class_id" value="<%= @the_chapter.yoga_class_id %>">
+      </div>
+
+      <div>
+        <label for="name_box">
+          Name
+        </label>
+
+        <input type="text" id="name_box" name="query_name" value="<%= @the_chapter.name %>">
+      </div>
+
+      <div>
+        <label for="duration_secs_box">
+          Duration secs
+        </label>
+
+        <input type="text" id="duration_secs_box" name="query_duration_secs" value="<%= @the_chapter.duration_secs %>">
+      </div>
+
+      <button>
+        Update chapter
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

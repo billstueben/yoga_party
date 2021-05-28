@@ -1,0 +1,101 @@
+<div>
+  <div>
+    <h1>
+      Yoga class #<%= @the_yoga_class.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/yoga_classes">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_yoga_class/<%= @the_yoga_class.id %>">
+          Delete yoga class
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Yogi
+      </dt>
+      <dd>
+        <%= @the_yoga_class.yogi_id %>
+      </dd>
+
+      <dt>
+        Duration secs
+      </dt>
+      <dd>
+        <%= @the_yoga_class.duration_secs %>
+      </dd>
+
+      <dt>
+        Public to all
+      </dt>
+      <dd>
+        <%= @the_yoga_class.public_to_all %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_yoga_class.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_yoga_class.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit yoga class
+    </h2>
+
+    <form action="/modify_yoga_class/<%= @the_yoga_class.id %>"  method="post" >
+      <div>
+        <label for="yogi_id_box">
+          Yogi
+        </label>
+
+        <input type="text" id="yogi_id_box" name="query_yogi_id" value="<%= @the_yoga_class.yogi_id %>">
+      </div>
+
+      <div>
+        <label for="duration_secs_box">
+          Duration secs
+        </label>
+
+        <input type="text" id="duration_secs_box" name="query_duration_secs" value="<%= @the_yoga_class.duration_secs %>">
+      </div>
+
+      <div>
+        <input type="checkbox" id="public_to_all_box" name="query_public_to_all" value="1" <%= "checked" if @the_yoga_class.public_to_all %>>
+
+        <label for="public_to_all_box">
+            Public to all
+        </label>
+      </div>
+
+      <button>
+        Update yoga class
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

@@ -10,6 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2021_05_28_215345) do
+
+  create_table "chapters", force: :cascade do |t|
+    t.integer "yoga_class_id"
+    t.string "name"
+    t.integer "duration_secs"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "poses", force: :cascade do |t|
+    t.string "name"
+    t.string "picture"
+    t.integer "chapter_id"
+    t.string "tips"
+    t.integer "duration_secs"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "yoga_classes", force: :cascade do |t|
+    t.integer "yogi_id"
+    t.string "duration_secs"
+    t.boolean "public_to_all"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "yogis", force: :cascade do |t|
+    t.string "email"
+    t.string "password_digest"
+    t.string "first_name"
+    t.string "last_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
 end

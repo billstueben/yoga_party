@@ -1,0 +1,153 @@
+<div>
+  <div>
+    <h1>
+      List of all poses
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new pose
+    </h2>
+
+    <form action="/insert_pose" method="post">
+      <div>
+        <label for="name_box">
+          Name
+        </label>
+
+        <input type="text" id="name_box" name="query_name">
+      </div>
+
+      <div>
+        <label for="picture_box">
+          Picture
+        </label>
+
+        <input type="text" id="picture_box" name="query_picture">
+      </div>
+
+      <div>
+        <label for="chapter_id_box">
+          Chapter
+        </label>
+
+  
+
+        <select name="query_chapter_id" id="chapter_id_box">
+ 
+        <option value="1">
+          1. Warm up
+        </option>
+
+        <option value="2">
+          2. Flow
+        </option>
+
+        <option value="3">
+          3. Balancing
+        </option>
+
+        <option value="4">
+          4. Cool down
+        </option>
+
+        </select>
+
+
+
+      </div>
+
+      <div>
+        <label for="tips_box">
+          Tips
+        </label>
+
+        <input type="text" id="tips_box" name="query_tips">
+      </div>
+
+      <div>
+        <label for="duration_secs_box">
+          Duration secs
+        </label>
+
+        <input type="text" id="duration_secs_box" name="query_duration_secs">
+      </div>
+
+      <button>
+        Create pose
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+
+        <th>
+          Name
+        </th>
+
+        <th>
+          Picture
+        </th>
+
+        <th>
+          Chapter
+        </th>
+
+        <th>
+          Tips
+        </th>
+
+        <th>
+          Duration secs
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_poses.each do |a_pose| %>
+      <tr>
+    
+
+        <td>
+          <%= a_pose.name %>
+        </td>
+
+        <td>
+          <img width= 300px src="<%=a_pose.picture %>">
+        </td>
+
+        <td>
+          <%= a_pose.chapter_id %>
+        </td>
+
+        <td>
+          <%= a_pose.tips %>
+        </td>
+
+        <td>
+          <%= a_pose.duration_secs %>
+        </td>
+
+        <td>
+          <a href="/poses/<%= a_pose.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

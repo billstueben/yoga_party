@@ -1,0 +1,118 @@
+<div>
+  <div>
+    <h1>
+      List of all chapters
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new chapter
+    </h2>
+
+    <form action="/insert_chapter" method="post">
+      <div>
+        <label for="yoga_class_id_box">
+          Yoga class
+        </label>
+
+        <input type="text" id="yoga_class_id_box" name="query_yoga_class_id">
+      </div>
+
+      <div>
+        <label for="name_box">
+          Name
+        </label>
+
+        <input type="text" id="name_box" name="query_name">
+      </div>
+
+      <div>
+        <label for="duration_secs_box">
+          Duration secs
+        </label>
+
+        <input type="text" id="duration_secs_box" name="query_duration_secs">
+      </div>
+
+      <button>
+        Create chapter
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table>
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Yoga class
+        </th>
+
+        <th>
+          Name
+        </th>
+
+        <th>
+          Duration secs
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_chapters.each do |a_chapter| %>
+      <tr>
+        <td>
+          <%= a_chapter.id %>
+        </td>
+
+        <td>
+          <%= a_chapter.yoga_class_id %>
+        </td>
+
+        <td>
+          <%= a_chapter.name %>
+        </td>
+
+        <td>
+          <%= a_chapter.duration_secs %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_chapter.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_chapter.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/chapters/<%= a_chapter.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

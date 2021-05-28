@@ -1,0 +1,116 @@
+<div>
+  <div>
+    <h1>
+      List of all yoga classes
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new yoga class
+    </h2>
+
+    <form action="/insert_yoga_class" method="post">
+      <div>
+        <label for="yogi_id_box">
+          Yogi
+        </label>
+
+        <input type="text" id="yogi_id_box" name="query_yogi_id">
+      </div>
+
+      <div>
+        <label for="duration_secs_box">
+          Duration secs
+        </label>
+
+        <input type="text" id="duration_secs_box" name="query_duration_secs">
+      </div>
+
+      <div>
+        <input type="checkbox" id="public_to_all_box" name="query_public_to_all" value="1">
+
+        <label for="public_to_all_box">Public to all</label>
+      </div>
+
+      <button>
+        Create yoga class
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table>
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Yogi
+        </th>
+
+        <th>
+          Duration secs
+        </th>
+
+        <th>
+          Public to all
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_yoga_classes.each do |a_yoga_class| %>
+      <tr>
+        <td>
+          <%= a_yoga_class.id %>
+        </td>
+
+        <td>
+          <%= a_yoga_class.yogi_id %>
+        </td>
+
+        <td>
+          <%= a_yoga_class.duration_secs %>
+        </td>
+
+        <td>
+          <%= a_yoga_class.public_to_all %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_yoga_class.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_yoga_class.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/yoga_classes/<%= a_yoga_class.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

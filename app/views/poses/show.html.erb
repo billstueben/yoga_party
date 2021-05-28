@@ -1,0 +1,154 @@
+<div>
+  <div>
+    <h1>
+      Pose #<%= @the_pose.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/poses">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_pose/<%= @the_pose.id %>">
+          Delete pose
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Name
+      </dt>
+      <dd>
+        <%= @the_pose.name %>
+      </dd>
+
+      <dt>
+        Picture
+      </dt>
+      <dd>
+        <%= @the_pose.picture %>
+      </dd>
+
+      <dt>
+        Chapter
+      </dt>
+      <dd>
+        <%= @the_pose.chapter_id %>
+      </dd>
+
+      <dt>
+        Tips
+      </dt>
+      <dd>
+        <%= @the_pose.tips %>
+      </dd>
+
+      <dt>
+        Duration secs
+      </dt>
+      <dd>
+        <%= @the_pose.duration_secs %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_pose.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_pose.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit pose
+    </h2>
+
+    <form action="/modify_pose/<%= @the_pose.id %>"  method="post" >
+      <div>
+        <label for="name_box">
+          Name
+        </label>
+
+        <input type="text" id="name_box" name="query_name" value="<%= @the_pose.name %>">
+      </div>
+
+      <div>
+        <label for="picture_box">
+          Picture
+        </label>
+
+        <input type="text" id="picture_box" name="query_picture" value="<%= @the_pose.picture %>">
+      </div>
+
+      <div>
+      <label for="chapter_id_box">
+        Chapter
+      </label>
+
+
+
+      <select name="query_chapter_id" id="chapter_id_box">
+
+      <option value="1">
+        1. Warm up
+      </option>
+
+      <option value="2">
+        2. Flow
+      </option>
+
+      <option value="3">
+        3. Balancing
+      </option>
+
+      <option value="4">
+        4. Cool down
+      </option>
+
+      </select>
+
+
+
+    </div>
+
+      <div>
+        <label for="tips_box">
+          Tips
+        </label>
+
+        <input type="text" id="tips_box" name="query_tips" value="<%= @the_pose.tips %>">
+      </div>
+
+      <div>
+        <label for="duration_secs_box">
+          Duration secs
+        </label>
+
+        <input type="text" id="duration_secs_box" name="query_duration_secs" value="<%= @the_pose.duration_secs %>">
+      </div>
+
+      <button>
+        Update pose
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
