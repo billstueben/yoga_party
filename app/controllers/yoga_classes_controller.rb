@@ -75,11 +75,10 @@ class YogaClassesController < ApplicationController
     cool_down_chapter.duration_secs = 0
     cool_down_chapter.save
 
-
-
-      redirect_to("/yoga_classes", { :notice => "Yoga class created successfully." })
+    redirect_to("/yoga_classes/#{the_yoga_class.id}", { :notice => "Yoga class created successfully."} )
     else
-      redirect_to("/yoga_classes", { :notice => "Yoga class failed to create successfully." })
+      redirect_to("/yoga_classes/#{the_yoga_class.id}", { :alert => "Yoga class failed to created successfully." })
+
     end
   end
 

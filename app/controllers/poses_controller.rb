@@ -1,8 +1,8 @@
 class PosesController < ApplicationController
   def index
-    matching_poses = Pose.where({ :chapter_id => 1 })
+    matching_poses = Pose.where({ :chapter_id => 1 }).order(:name)
 
-    @list_of_poses = matching_poses.order({ :created_at => :desc })
+    @list_of_poses = matching_poses
 
     render({ :template => "poses/index.html.erb" })
   end

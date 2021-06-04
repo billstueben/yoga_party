@@ -169,7 +169,7 @@ cool_down_duration_den = @the_yoga_class.duration_secs.to_f * 0.15
     <form action="/insert_class_pose/<%= @the_yoga_class.id %>" method="post">
       <select name="query_name" id="query_name_box">
 
-      <% Pose.where({ :chapter_id => 1 }).each do |a_pose| %>    
+      <% Pose.where({ :chapter_id => 1 }).order(:name).each do |a_pose| %>    
       <option value="<%=a_pose.name%>">
         <%=a_pose.name%>
       </option>
@@ -179,7 +179,8 @@ cool_down_duration_den = @the_yoga_class.duration_secs.to_f * 0.15
       <select name="query_chapter_id" id="query_chapter_id_box">
       <% @matching_chapters.each do |a_chapter| %>    
         <option value="<%=a_chapter.id%>">
-          <%=a_chapter.name%>
+          <%=
+          a_chapter.name%>
         </option>
         <% end %>
         </select>

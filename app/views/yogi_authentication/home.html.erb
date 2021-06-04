@@ -31,7 +31,18 @@
 
 <p> Thank you for sharing your practice with us. Namaste!  </p>
 
-<img src="https://cdn.doyou.com/articles/1-is-this-yoga-1514184940575.jpg=w1080">
+<%
+comics = ["https://cdn.doyou.com/articles/1-is-this-yoga-1514184940575.jpg=w1080","https://cdn.doyou.com/wp/2016/05/2.-first-time-doing-yoga-what-are-you.jpg","https://cdn.doyou.com/wp/2016/05/4.-Meditation-pizza.jpg","https://cdn.doyou.com/articles/5-tin-man-yoga-1514185077399.jpg=w1080","https://cdn.doyou.com/wp/2016/05/6.-benefits-of-yoga.jpg","https://cdn.doyou.com/wp/2016/05/7.-Unicorn-pose.jpg","https://cdn.doyou.com/articles/8-not-thinking-kick-750x505-1514185113981.png=w1080","https://cdn.doyou.com/wp/2016/05/9.-so-easy.jpg","https://cdn.doyou.com/articles/10-so-specialized-1514185199698.jpg=w1080","https://cdn.doyou.com/wp/2016/05/11.-animal-noises.gif","https://cdn.doyou.com/wp/2016/05/12.-prozac.jpg","https://cdn.doyou.com/wp/2016/05/doing-great.jpg","https://cdn.doyou.com/wp/2016/05/14.-im-off-balance.gif","https://cdn.doyou.com/wp/2016/05/15.-going-for-a-drink1.jpg","https://cdn.doyou.com/wp/2016/05/16.-worrier-pose.jpg","https://cdn.doyou.com/wp/2016/05/17.-learning-to-stay.png","https://cdn.doyou.com/wp/2016/05/18.-making-sure-everyone-has-eyes-closed.jpg","https://cdn.doyou.com/wp/2016/05/19.-pug-yoga.jpg","https://cdn.doyou.com/wp/2016/05/20.-hulk-yoga-four.jpg"]
+comics[rand((0..1))]
+%>
+<img src=<%=comics[rand((0..18))]%> >
+
+<div>
+Comics from doyou.com
+</div>
+
+
+
 
 
 

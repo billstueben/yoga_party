@@ -96,7 +96,7 @@
         </th>
       </tr>
 
-      <% @list_of_yoga_classes.where({:public_to_all => "True"}).each do |a_yoga_class| %>
+      <% @list_of_yoga_classes.where({:public_to_all => "True"}).order(:name).each do |a_yoga_class| %>
       <tr>
     
         <td>
