@@ -4,6 +4,7 @@
       YogaParty
     </a>
 
+    <% if session[:yogi_id].present? %>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsible-nav-links" aria-controls="collapsible-nav-links" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -12,21 +13,46 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Things to look at
+            Things you can do
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a href="/chapters" class="dropdown-item">
-              Chapters
+              Build a class
             </a>
             <a href="/yoga_classes" class="dropdown-item">
-              Yoga Classes
+              Let us build you class
+            </a>
+            <a href="/yoga_classes" class="dropdown-item">
+              See your classes
             </a>
             <a href="/poses" class="dropdown-item">
-              Poses
+              See everyone's classes
             </a>
           </div>
         </li>
       </ul>
     </div> <!-- .navbar-collapse -->
+  
+    <div class="container" >
+      <a class="navbar-nav" href="/yoga_classes">
+        Classes
+      </a>
+    </div> 
+
+    <div class="container">
+      <a class="navbar-nav" href="/poses">
+        Poses
+      </a>
+    </div> 
+
+    <div class="container">
+      <a class="navbar-nav" href="/yogi_sign_out">
+        Sign out
+      </a>
+    </div> 
+
+    <% end %>
+
+
   </div> <!-- .container -->
 </nav>
