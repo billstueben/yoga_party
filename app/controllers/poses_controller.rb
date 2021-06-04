@@ -79,33 +79,19 @@ class PosesController < ApplicationController
   end
 
   def destroy
-    the_id = params.fetch("path_id")
-    the_pose = Pose.where({ :id => the_id }).at(0)
+    @the_id = params.fetch("path_id")
+    @the_pose = Pose.where({ :id => @the_id }).at(0)
+    @the_chapter = Chapter.where({ :id => @the_pose.chapter_id }).at(0)
+    @the_yoga_class = YogaClass.where({ :id => @the_chapter.yoga_class_id }).at(0)
 
-    the_pose.destroy
-      redirect_to("/poses", { :notice => "Pose deleted successfully."} )
-    
-
-  end
-
-  def destroy
-    the_id = params.fetch("path_id")
-    the_pose = Pose.where({ :id => the_id }).at(0)
-    the_chapter = Chapter.where({ :id => the_pose.chapter_id }).at(0)
-
-    the_pose.destroy
-      redirect_to("/poses", { :notice => "Pose deleted successfully."} )
-
-  end
-
-  def destroy_class_pose
-    the_id = params.fetch("path_id")
-    the_pose = Pose.where({ :id => the_id }).at(0)
-    the_chapter = Chapter.where({ :id => the_pose.chapter_id }).at(0)
-
-    the_pose.destroy
-      redirect_to("/poses", { :notice => "Pose deleted successfully."} )
-
+    if @the_pose.chapter_id == 1
+      @the_pose.destroy
+      redirect_to("/poses", { :notice => "Pose deleted successfully."} )  
+    else
+      @the_pose.destroy
+      redirect_to("/yoga_classes/#{@the_yoga_class.id}", { :notice => "Pose deleted successfully" })
+    end  
+      #render({ :template => "poses/delete.html.erb" })
   end
 
 

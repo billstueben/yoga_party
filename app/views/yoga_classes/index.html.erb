@@ -48,10 +48,11 @@
 <hr>
 <div>
   <div>
-    <table>
+    <table border="1">
+    
       <tr>
         <th>
-          ID
+          Name
         </th>
 
         <th>
@@ -59,11 +60,11 @@
         </th>
 
         <th>
-          Duration secs
+          Length
         </th>
 
         <th>
-          Public to all
+          Public
         </th>
 
         <th>
@@ -78,22 +79,29 @@
         </th>
       </tr>
 
-      <% @list_of_yoga_classes.each do |a_yoga_class| %>
+      <% @list_of_yoga_classes.where({:public_to_all => "True"}).each do |a_yoga_class| %>
       <tr>
+    
         <td>
-          <%= a_yoga_class.id %>
+        <%= a_yoga_class.name %>
+        </td>
+
+
+        <td>
+          <%= Yogi.where({:id => a_yoga_class.yogi_id}).at(0).first_name + " " + Yogi.where({:id => a_yoga_class.yogi_id}).at(0).last_name %>
+        </td>
+
+
+        <td>
+          <%= (a_yoga_class.duration_secs.to_f / 60).to_i %>
         </td>
 
         <td>
-          <%= a_yoga_class.yogi_id %>
-        </td>
-
-        <td>
-          <%= a_yoga_class.duration_secs %>
-        </td>
-
-        <td>
-          <%= a_yoga_class.public_to_all %>
+          <% if a_yoga_class.public_to_all == true %> 
+            Yes 
+          <% else %>
+            No
+          <% end %>
         </td>
 
         <td>
@@ -110,6 +118,49 @@
         </td>
       </tr>
       <% end %>
+
+      </tr>
+
+      <% @list_of_yoga_classes.where({:public_to_all => "False"}).where({:yogi_id => @current_yogi}).each do |a_yoga_class| %>
+      <tr>
+    
+        <td>
+        <%= a_yoga_class.name %>
+        </td>
+
+
+        <td>
+          <%= Yogi.where({:id => a_yoga_class.yogi_id}).at(0).first_name + " " + Yogi.where({:id => a_yoga_class.yogi_id}).at(0).last_name %>
+        </td>
+
+
+        <td>
+          <%= (a_yoga_class.duration_secs.to_f / 60).to_i %>
+        </td>
+
+        <td>
+          <% if a_yoga_class.public_to_all == true %> 
+            Yes 
+          <% else %>
+            No
+          <% end %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_yoga_class.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_yoga_class.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/yoga_classes/<%= a_yoga_class.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+
     </table>
   </div>
 </div>

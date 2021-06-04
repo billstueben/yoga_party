@@ -1,18 +1,5 @@
 
-#@the_yoga_class = matching_yoga_classes.at(0)
-@matching_chapters = Chapter.where({:yoga_class_id => @the_yoga_class.id})
 
-
-
-#4 chapters with the 2 wheres
-
-
-
-#@the_chapter = Chapter.where({:yoga_class_id => @the_yoga_class.id}).at(0)
-#@matching_poses = Pose.where({:chapter_id => @the_chapter.id})
-
-
-%>
 <a href="/chapters">
 chapters
 </a>
@@ -24,40 +11,31 @@ chapters
        <%= @the_yoga_class.name %> Details
     </h1>
 
-    <div>
-      <div>
-        <a href="/yoga_classes">
-          Go back
-        </a>
-      </div>
-
-      <div>
-        <a href="/delete_yoga_class/<%= @the_yoga_class.id %>">
-          Delete yoga class
-        </a>
-      </div>
-    </div>
 
     <dl>
       <dt>
         Yogi
       </dt>
       <dd>
-        <%= @the_yoga_class.yogi_id %>
+        <%= Yogi.where({:id => @the_yoga_class.yogi_id}).at(0).first_name + " " + Yogi.where({:id => @the_yoga_class.yogi_id}).at(0).last_name %>
       </dd>
 
       <dt>
-        Duration secs
+        Class length (minutes)
       </dt>
       <dd>
-        <%= @the_yoga_class.duration_secs %>
+        <%= (@the_yoga_class.duration_secs.to_f / 60).to_i %>
       </dd>
 
       <dt>
-        Public to all
+        Public?
       </dt>
       <dd>
-        <%= @the_yoga_class.public_to_all %>
+        <% if @the_yoga_class.public_to_all == true %>
+          Yes
+        <% else %>
+          No
+        <% end %>
       </dd>
 
       <dt>
@@ -77,7 +55,24 @@ chapters
   </div>
 </div>
 
+<div>
+<div>
+  <a href="/yoga_classes">
+    Back to all yoga classes
+  </a>
+</div>
+
+<% if @current_yogi.id == @the_yoga_class.yogi_id %>
+
+<div>
+  <a href="/delete_yoga_class/<%= @the_yoga_class.id %>">
+    Delete this yoga class
+  </a>
+</div>
+</div>
+
 <hr>
+
 
 
 <div>
@@ -88,20 +83,38 @@ chapters
 
     <form action="/modify_yoga_class/<%= @the_yoga_class.id %>"  method="post" >
       <div>
-        <label for="yogi_id_box">
-          Yogi
+        <label for="name_box">
+          Name
         </label>
 
-        <input type="text" id="yogi_id_box" name="query_yogi_id" value="<%= @the_yoga_class.yogi_id %>">
+        <input type="text" id="name_box" name="query_name" value="<%= @the_yoga_class.name %>">
       </div>
 
       <div>
-        <label for="duration_secs_box">
-          Duration secs
+      <label for="duration_secs_box">
+          Class length
         </label>
 
-        <input type="text" id="duration_secs_box" name="query_duration_secs" value="<%= @the_yoga_class.duration_secs %>">
+      <select name="query_duration_secs" id="query_duration_secs">    
+        <option value="<%= 60*15 %>">
+          15 minutes
+        </option>
+
+        <option value="<%= 30*60 %>">
+          30 minutes
+        </option>
+
+        <option value="<%= 45*60 %>">
+          45 minutes
+        </option>
+
+        <option value="<%= 60*60 %>">
+          60 minutes
+        </option>
+
+      </select>
       </div>
+
 
       <div>
         <input type="checkbox" id="public_to_all_box" name="query_public_to_all" value="1" <%= "checked" if @the_yoga_class.public_to_all %>>
@@ -120,7 +133,8 @@ chapters
 
 <hr>
 
-<hr>
+
+
 
 <div>
   <div>
@@ -153,9 +167,27 @@ chapters
   </div>
 </div>
 
+
+
+<% end %>
+
 <hr>
 
+<%
+duration = 0 
+Pose.where({:chapter_id => @warm_up_chapter.at(0).id}).each do |time_pose|
+  duration = duration + time_pose.duration_secs
+end
+%>
+
+<%= duration %> 
+
+
+
 <h2>Warm up poses</h2>
+<h3>
+<%= "#{(duration.to_f / @the_yoga_class.duration_secs.to_f).round(2)}%" %> complete!
+</h3>
 
 <div>
   <div>
@@ -187,6 +219,7 @@ chapters
         </th>
 
       </tr>
+      
 
       <% Pose.where({:chapter_id => @warm_up_chapter.at(0).id}).each do |a_pose| %>
 
@@ -210,17 +243,19 @@ chapters
         </td>
 
         <td>
-          <a href="/poses/<%= a_pose.id %>">
+          <a href="/poses/<%= Pose.where({:name => a_pose.name}).where({:chapter_id => 1}).at(0).id %>">
             Show details
           </a>
         </td>
 
+
+        <% if @current_yogi.id == @the_yoga_class.yogi_id %>
         <td>
           <a href="/delete_pose/<%= a_pose.id %>">
           Remove
           </a>
         </td>
-
+        <% end %>
       </tr>
       <% end %>
     </table>
@@ -228,3 +263,232 @@ chapters
 </div>
 
 <hr>
+
+<h2>Flow poses</h2>
+
+<div>
+  <div>
+    <table border="1">
+      <tr>
+
+        <th>
+          Name
+        </th>
+
+        <th>
+          Picture
+        </th>
+
+        <th>
+          Tips
+        </th>
+
+        <th>
+          Duration secs
+        </th>
+
+        <th>
+          Details
+        </th>
+
+        <th>
+          Remove
+        </th>
+
+      </tr>
+      
+      
+      <% Pose.where({:chapter_id => @flow_chapter.at(0).id}).each do |a_pose| %>
+
+      <tr>
+    
+
+        <td>
+          <%= a_pose.name %>
+        </td>
+
+        <td>
+          <img width= 300px src="<%=a_pose.picture %>">
+        </td>
+
+        <td>
+          <%= a_pose.tips %>
+        </td>
+
+        <td>
+          <%= a_pose.duration_secs %>
+        </td>
+
+        <td>
+          <a href="/poses/<%= Pose.where({:name => a_pose.name}).where({:chapter_id => 1}).at(0).id %>">
+            Show details
+          </a>
+        </td>
+
+
+        <% if @current_yogi.id == @the_yoga_class.yogi_id %>
+        <td>
+          <a href="/delete_pose/<%= a_pose.id %>">
+          Remove
+          </a>
+        </td>
+        <% end %>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>
+
+<h2>Balancing poses</h2>
+
+<div>
+  <div>
+    <table border="1">
+      <tr>
+
+        <th>
+          Name
+        </th>
+
+        <th>
+          Picture
+        </th>
+
+        <th>
+          Tips
+        </th>
+
+        <th>
+          Duration secs
+        </th>
+
+        <th>
+          Details
+        </th>
+
+        <th>
+          Remove
+        </th>
+
+      </tr>
+      
+      
+      <% Pose.where({:chapter_id => @balancing_chapter.at(0).id}).each do |a_pose| %>
+
+      <tr>
+    
+
+        <td>
+          <%= a_pose.name %>
+        </td>
+
+        <td>
+          <img width= 300px src="<%=a_pose.picture %>">
+        </td>
+
+        <td>
+          <%= a_pose.tips %>
+        </td>
+
+        <td>
+          <%= a_pose.duration_secs %>
+        </td>
+
+        <td>
+          <a href="/poses/<%= Pose.where({:name => a_pose.name}).where({:chapter_id => 1}).at(0).id %>">
+            Show details
+          </a>
+        </td>
+
+
+        <% if @current_yogi.id == @the_yoga_class.yogi_id %>
+        <td>
+          <a href="/delete_pose/<%= a_pose.id %>">
+          Remove
+          </a>
+        </td>
+        <% end %>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>
+
+<h2>Cool down poses</h2>
+
+<div>
+  <div>
+    <table border="1">
+      <tr>
+
+        <th>
+          Name
+        </th>
+
+        <th>
+          Picture
+        </th>
+
+        <th>
+          Tips
+        </th>
+
+        <th>
+          Duration secs
+        </th>
+
+        <th>
+          Details
+        </th>
+
+        <th>
+          Remove
+        </th>
+
+      </tr>
+      
+      
+      <% Pose.where({:chapter_id => @cool_down_chapter.at(0).id}).each do |a_pose| %>
+
+      <tr>
+    
+
+        <td>
+          <%= a_pose.name %>
+        </td>
+
+        <td>
+          <img width= 300px src="<%=a_pose.picture %>">
+        </td>
+
+        <td>
+          <%= a_pose.tips %>
+        </td>
+
+        <td>
+          <%= a_pose.duration_secs %>
+        </td>
+
+        <td>
+          <a href="/poses/<%= Pose.where({:name => a_pose.name}).where({:chapter_id => 1}).at(0).id %>">
+            Show details
+          </a>
+        </td>
+
+
+        <% if @current_yogi.id == @the_yoga_class.yogi_id %>
+        <td>
+          <a href="/delete_pose/<%= a_pose.id %>">
+          Remove
+          </a>
+        </td>
+        <% end %>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

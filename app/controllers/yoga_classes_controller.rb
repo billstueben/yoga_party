@@ -79,7 +79,7 @@ class YogaClassesController < ApplicationController
     the_id = params.fetch("path_id")
     the_yoga_class = YogaClass.where({ :id => the_id }).at(0)
 
-    the_yoga_class.yogi_id = params.fetch("query_yogi_id")
+    the_yoga_class.name = params.fetch("query_name")
     the_yoga_class.duration_secs = params.fetch("query_duration_secs")
     the_yoga_class.public_to_all = params.fetch("query_public_to_all", false)
 
