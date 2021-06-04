@@ -7,6 +7,14 @@ class YogaClassesController < ApplicationController
     render({ :template => "yoga_classes/index.html.erb" })
   end
 
+  def my_index
+    matching_yoga_classes = YogaClass.where({:yogi_id => @current_yogi.id})
+
+    @list_of_yoga_classes = matching_yoga_classes.order({ :created_at => :desc })
+
+    render({ :template => "yoga_classes/my_index.html.erb" })
+  end
+
   def warm_up
 
     render({ :template => "yoga_classes/warm_up.html.erb" })

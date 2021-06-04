@@ -32,6 +32,8 @@ Rails.application.routes.draw do
           
   # READ
   get("/yoga_classes", { :controller => "yoga_classes", :action => "index" })
+
+  get("/my_yoga_classes", { :controller => "yoga_classes", :action => "my_index" })
   
   get("/yoga_classes/:path_id", { :controller => "yoga_classes", :action => "show" })
   

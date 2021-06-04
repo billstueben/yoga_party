@@ -174,19 +174,41 @@ chapters
 <hr>
 
 <%
-duration = 0 
+
+
+duration = 0
+warm_up_duration = 0 
 Pose.where({:chapter_id => @warm_up_chapter.at(0).id}).each do |time_pose|
   duration = duration + time_pose.duration_secs
+  warm_up_duration = warm_up_duration + time_pose.duration_secs
 end
+flow_duration = 0
+Pose.where({:chapter_id => @flow_chapter.at(0).id}).each do |time_pose|
+  duration = duration + time_pose.duration_secs
+  flow_duration = flow_duration + time_pose.duration_secs
+end
+balancing_duration = 0
+Pose.where({:chapter_id => @balancing_chapter.at(0).id}).each do |time_pose|
+  duration = duration + time_pose.duration_secs
+  balancing_duration = balancing_duration + time_pose.duration_secs
+end
+cool_down_duration = 0
+Pose.where({:chapter_id => @cool_down_chapter.at(0).id}).each do |time_pose|
+  duration = duration + time_pose.duration_secs
+  cool_down_duration = cool_down_duration + time_pose.duration_secs
+end
+
+warm_up_duration_den = @the_yoga_class.duration_secs.to_f * 0.15
+flow_duration_den = @the_yoga_class.duration_secs.to_f * 0.40
+balancing_duration_den = @the_yoga_class.duration_secs.to_f * 0.20
+cool_down_duration_den = @the_yoga_class.duration_secs.to_f * 0.15
 %>
 
-<%= duration %> 
-
-
+<%= "#{(duration.to_f*100 / @the_yoga_class.duration_secs.to_f).round(2)}%" %> complete!
 
 <h2>Warm up poses</h2>
 <h3>
-<%= "#{(duration.to_f / @the_yoga_class.duration_secs.to_f).round(2)}%" %> complete!
+<%= "#{(warm_up_duration.to_f*100 / warm_up_duration_den.to_f).round(2)}%" %> complete!
 </h3>
 
 <div>
@@ -264,7 +286,11 @@ end
 
 <hr>
 
-<h2>Flow poses</h2>
+<h2>Flow poses (repeat 2x on each side)</h2>
+<h3>
+<%= "#{(flow_duration.to_f * 4*100 / flow_duration_den.to_f).round(2)}%" %> complete!
+</h3>
+
 
 <div>
   <div>
@@ -342,6 +368,9 @@ end
 <hr>
 
 <h2>Balancing poses</h2>
+<h3>
+<%= "#{(balancing_duration.to_f*100 / balancing_duration_den.to_f).round(2)}%" %> complete!
+</h3>
 
 <div>
   <div>
@@ -419,6 +448,10 @@ end
 <hr>
 
 <h2>Cool down poses</h2>
+<h3>
+<%= "#{(cool_down_duration.to_f*100 / cool_down_duration_den.to_f).round(2)}%" %> complete!
+</h3>
+
 
 <div>
   <div>
