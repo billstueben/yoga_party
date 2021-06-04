@@ -66,7 +66,7 @@ class PosesController < ApplicationController
 
     the_pose.name = params.fetch("query_name")
     the_pose.picture = params.fetch("query_picture")
-    the_pose.chapter_id = params.fetch("query_chapter_id")
+    #the_pose.chapter_id = params.fetch("query_chapter_id")
     the_pose.tips = params.fetch("query_tips")
     the_pose.duration_secs = params.fetch("query_duration_secs")
 
