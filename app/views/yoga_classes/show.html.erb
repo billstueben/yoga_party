@@ -1,7 +1,27 @@
+
+#@the_yoga_class = matching_yoga_classes.at(0)
+@matching_chapters = Chapter.where({:yoga_class_id => @the_yoga_class.id})
+
+
+
+#4 chapters with the 2 wheres
+
+
+
+#@the_chapter = Chapter.where({:yoga_class_id => @the_yoga_class.id}).at(0)
+#@matching_poses = Pose.where({:chapter_id => @the_chapter.id})
+
+
+%>
+<a href="/chapters">
+chapters
+</a>
+
+
 <div>
   <div>
     <h1>
-      Yoga class #<%= @the_yoga_class.id %> details
+       <%= @the_yoga_class.name %> Details
     </h1>
 
     <div>
@@ -95,6 +115,115 @@
         Update yoga class
       </button>
     </form>
+  </div>
+</div>
+
+<hr>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new pose
+    </h2>
+
+    <form action="/insert_class_pose/<%= @the_yoga_class.id %>" method="post">
+      <select name="query_name" id="query_name_box">
+
+      <% Pose.where({ :chapter_id => 1 }).each do |a_pose| %>    
+      <option value="<%=a_pose.name%>">
+        <%=a_pose.name%>
+      </option>
+      <% end %>
+      </select>
+
+      <select name="query_chapter_id" id="query_chapter_id_box">
+      <% @matching_chapters.each do |a_chapter| %>    
+        <option value="<%=a_chapter.id%>">
+          <%=a_chapter.name%>
+        </option>
+        <% end %>
+        </select>
+
+      <button>
+        Add pose
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+
+<h2>Warm up poses</h2>
+
+<div>
+  <div>
+    <table border="1">
+      <tr>
+
+        <th>
+          Name
+        </th>
+
+        <th>
+          Picture
+        </th>
+
+        <th>
+          Tips
+        </th>
+
+        <th>
+          Duration secs
+        </th>
+
+        <th>
+          Details
+        </th>
+
+        <th>
+          Remove
+        </th>
+
+      </tr>
+
+      <% Pose.where({:chapter_id => @warm_up_chapter.at(0).id}).each do |a_pose| %>
+
+      <tr>
+    
+
+        <td>
+          <%= a_pose.name %>
+        </td>
+
+        <td>
+          <img width= 300px src="<%=a_pose.picture %>">
+        </td>
+
+        <td>
+          <%= a_pose.tips %>
+        </td>
+
+        <td>
+          <%= a_pose.duration_secs %>
+        </td>
+
+        <td>
+          <a href="/poses/<%= a_pose.id %>">
+            Show details
+          </a>
+        </td>
+
+        <td>
+          <a href="/delete_pose/<%= a_pose.id %>">
+          Remove
+          </a>
+        </td>
+
+      </tr>
+      <% end %>
+    </table>
   </div>
 </div>
 

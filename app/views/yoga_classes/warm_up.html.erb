@@ -1,0 +1,24 @@
+<div>
+  <div>
+    <h2>
+      Add a warm_up pose
+    </h2>
+
+    <form action="/insert_warm_up" method="post">
+
+      <select name="query_pose_id" id="query_pose_id_box">
+
+      <% Pose.all.each do |a_pose| %>    
+      <option value="<%=a_pose.id%>">
+        <%=a_pose.name%>
+      </option>
+      <% end %>
+      </select>
+
+      <button>
+        Add this pose!
+      </button>
+    </form>
+  </div>
+</div>
+

@@ -16,6 +16,6 @@ class Pose < ApplicationRecord
     belongs_to(:chapter, { :required => false, :class_name => "Chapter", :foreign_key => "chapter_id" })
 
     validates(:name, { :presence => true })
-    validates(:name, { :uniqueness => true })
+    #validates(:name, { :uniqueness => true })
 
 end

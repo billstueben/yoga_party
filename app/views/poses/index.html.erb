@@ -32,35 +32,13 @@
       </div>
 
       <div>
-        <label for="chapter_id_box">
-          Chapter
+        <label for="name_box">
+          Name
         </label>
 
-  
-
-        <select name="query_chapter_id" id="chapter_id_box">
- 
-        <option value="1">
-          1. Warm up
-        </option>
-
-        <option value="2">
-          2. Flow
-        </option>
-
-        <option value="3">
-          3. Balancing
-        </option>
-
-        <option value="4">
-          4. Cool down
-        </option>
-
-        </select>
-
-
-
+        <input type="text" id="name_box" name="query_chapter_id">
       </div>
+
 
       <div>
         <label for="tips_box">
@@ -100,10 +78,6 @@
         </th>
 
         <th>
-          Chapter
-        </th>
-
-        <th>
           Tips
         </th>
 
@@ -116,6 +90,7 @@
       </tr>
 
       <% @list_of_poses.each do |a_pose| %>
+
       <tr>
     
 
@@ -125,10 +100,6 @@
 
         <td>
           <img width= 300px src="<%=a_pose.picture %>">
-        </td>
-
-        <td>
-          <%= a_pose.chapter_id %>
         </td>
 
         <td>

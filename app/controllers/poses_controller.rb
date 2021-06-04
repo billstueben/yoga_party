@@ -1,6 +1,6 @@
 class PosesController < ApplicationController
   def index
-    matching_poses = Pose.all
+    matching_poses = Pose.where({ :chapter_id => 1 })
 
     @list_of_poses = matching_poses.order({ :created_at => :desc })
 
@@ -21,7 +21,7 @@ class PosesController < ApplicationController
     the_pose = Pose.new
     the_pose.name = params.fetch("query_name")
     the_pose.picture = params.fetch("query_picture")
-    the_pose.chapter_id = params.fetch("query_chapter_id")
+    the_pose.chapter_id = 1
     the_pose.tips = params.fetch("query_tips")
     the_pose.duration_secs = params.fetch("query_duration_secs")
 
@@ -32,6 +32,33 @@ class PosesController < ApplicationController
       redirect_to("/poses", { :notice => "Pose failed to create successfully." })
     end
   end
+# The idea is to make a create that adds another version of the pose with that chapter id here
+  
+  def class_pose
+
+    the_id = params.fetch("path_id")
+    the_yoga_class = YogaClass.where({ :id => the_id }).at(0)
+
+    the_pose = Pose.new
+    the_pose.name = params.fetch("query_name")
+    the_pose.chapter_id = params.fetch("query_chapter_id")
+    @matching_pose = Pose.where({:name => the_pose.name}).at(0)
+    the_pose.duration_secs = @matching_pose.duration_secs
+    the_pose.picture = @matching_pose.picture
+    the_pose.tips = @matching_pose.tips
+    the_pose.created_at = @matching_pose.created_at
+    the_pose.updated_at = @matching_pose.updated_at
+
+    if the_pose.valid?
+      the_pose.save
+      redirect_to("/yoga_classes/#{the_yoga_class.id}", { :notice => "Pose successfully."} )
+    else
+      redirect_to("/yoga_classes/#{the_yoga_class.id}", { :alert => "Pose failed to add successfully." })
+    end
+
+  end
+
+
 
   def update
     the_id = params.fetch("path_id")
@@ -56,7 +83,30 @@ class PosesController < ApplicationController
     the_pose = Pose.where({ :id => the_id }).at(0)
 
     the_pose.destroy
+      redirect_to("/poses", { :notice => "Pose deleted successfully."} )
+    
 
-    redirect_to("/poses", { :notice => "Pose deleted successfully."} )
   end
+
+  def destroy
+    the_id = params.fetch("path_id")
+    the_pose = Pose.where({ :id => the_id }).at(0)
+    the_chapter = Chapter.where({ :id => the_pose.chapter_id }).at(0)
+
+    the_pose.destroy
+      redirect_to("/poses", { :notice => "Pose deleted successfully."} )
+
+  end
+
+  def destroy_class_pose
+    the_id = params.fetch("path_id")
+    the_pose = Pose.where({ :id => the_id }).at(0)
+    the_chapter = Chapter.where({ :id => the_pose.chapter_id }).at(0)
+
+    the_pose.destroy
+      redirect_to("/poses", { :notice => "Pose deleted successfully."} )
+
+  end
+
+
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_28_215345) do
+ActiveRecord::Schema.define(version: 2021_06_04_082551) do
 
   create_table "chapters", force: :cascade do |t|
     t.integer "yoga_class_id"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 2021_05_28_215345) do
     t.boolean "public_to_all"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
   end
 
   create_table "yogis", force: :cascade do |t|

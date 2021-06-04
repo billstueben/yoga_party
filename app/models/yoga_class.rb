@@ -4,6 +4,7 @@
 #
 #  id            :integer          not null, primary key
 #  duration_secs :string
+#  name          :string
 #  public_to_all :boolean
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null

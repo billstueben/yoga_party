@@ -26,6 +26,9 @@ Rails.application.routes.draw do
 
   # CREATE
   post("/insert_yoga_class", { :controller => "yoga_classes", :action => "create" })
+
+  get("/yoga_classes/warm_up", { :controller => "yoga_classes", :action => "warm_up" })
+
           
   # READ
   get("/yoga_classes", { :controller => "yoga_classes", :action => "index" })
@@ -72,7 +75,9 @@ Rails.application.routes.draw do
 
   # CREATE
   post("/insert_pose", { :controller => "poses", :action => "create" })
-          
+    
+  post("/insert_class_pose/:path_id", { :controller => "poses", :action => "class_pose" })
+
   # READ
   get("/poses", { :controller => "poses", :action => "index" })
   
@@ -84,6 +89,9 @@ Rails.application.routes.draw do
   
   # DELETE
   get("/delete_pose/:path_id", { :controller => "poses", :action => "destroy" })
+
+   # DELETE
+  get("/delete_class_pose/:path_id", { :controller => "poses", :action => "destroy_class_pose" })
 
   #------------------------------
 
